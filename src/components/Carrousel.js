@@ -1,4 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import Loading from "./Loading";
+
+import Card from "./util/Card";
+import Container from "./util/Container";
+import Grid from "./util/Grid";
+import ImageCard from "./util/ImageCard";
+const MainSelected = lazy(() => import('./MainSelected'))
 
 const Carrousel = () => {
   const url = "https://ipfs.moralis.io:2053/ipfs/";
@@ -11,12 +18,8 @@ const Carrousel = () => {
     { id: 5, urlId: "QmdbHNU3Cm5KTaJgbXqJrCBB2H4CRixF2z3PC7K4YthUDh" },
   ];
 
-  const fetchData = async (idSelected) => {
-    const data = await fetch(url + idSelected);
-    const response = await data.json();
-    setInfo(...response);
-  };
   const [info, setInfo] = useState([]);
+  const [selected, setSelected] = useState([]);
 
   const getData = () => {
     const getArrayItems = items.map(async (id) => {
@@ -30,28 +33,39 @@ const Carrousel = () => {
     });
   };
 
+  const handleClick = (selected) => {
+    setSelected(selected);
+  };
+
   useEffect(() => {
     getData();
-    console.log(info);
   }, []);
 
   if (!info) {
-    return "loading";
+    return <div>Loading Carosuel...</div>;
   }
 
   return (
     <>
       <div>Carrousel</div>
-
-      {info.map((data, index) => {
-        return (
-          <div key={index}>
-            <h1>{data.name}</h1>
-            <img src={data.image} alt={data.name}></img>
-          </div>
-        );
-      })}
-     
+      <Container>
+        <Grid>
+          {info.map((data, index) => {
+            return (
+              <Card key={index}>
+                <div onClick={() => handleClick(data)}>
+                  <h1>{data.name}</h1>
+                  <ImageCard src={data.image} alt={data.name}></ImageCard>
+                </div>
+              </Card>
+            );
+          })}
+        </Grid>
+      </Container>
+      
+      <Suspense fallback={<Loading />}>
+        <MainSelected selected={selected} />
+      </Suspense>
     </>
   );
 };
