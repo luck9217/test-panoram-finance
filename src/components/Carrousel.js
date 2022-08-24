@@ -5,6 +5,7 @@ import Card from "./util/Card";
 import Container from "./util/Container";
 import Grid from "./util/Grid";
 import ImageCard from "./util/ImageCard";
+import NameCard from "./util/NameCard";
 const MainSelected = lazy(() => import("./MainSelected"));
 
 const Carrousel = () => {
@@ -48,25 +49,28 @@ const Carrousel = () => {
   return (
     <>
       <Container>
-        <div>Carrousel</div>
         <Grid>
           {info.map((data, index) => {
             return (
               <Card key={index}>
                 <div onClick={() => handleClick(data)}>
-                  <h1>{data.name}</h1>
                   <ImageCard src={data.image} alt={data.name}></ImageCard>
+
+                  <NameCard>
+                    <h1> {data.name} </h1>
+                  </NameCard>
                 </div>
               </Card>
             );
           })}
         </Grid>
-
-        
+      
           <Suspense fallback={<Loading />}>
             <MainSelected selected={selected} />
           </Suspense>
-     
+
+         
+       
       </Container>
     </>
   );
