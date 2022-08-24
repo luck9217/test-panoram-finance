@@ -4,13 +4,14 @@ const Card = styled.div`
   margin: 1rem;
   padding: 1.5rem;
   text-align: left;
-  color: inherit;
-  border: 1px solid #eaeaea;
+  color:#09120e;
+  border: 1px solid #09120e;
   border-radius: 10px;
+  width: 20%;
 
   &:hover {
-    color: white;
-    border-color: #0070f3;
+    color: #6f6918;
+    border-color:#6f6918;
     cursor:pointer;
   }
 `;

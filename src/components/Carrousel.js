@@ -5,7 +5,7 @@ import Card from "./util/Card";
 import Container from "./util/Container";
 import Grid from "./util/Grid";
 import ImageCard from "./util/ImageCard";
-const MainSelected = lazy(() => import('./MainSelected'))
+const MainSelected = lazy(() => import("./MainSelected"));
 
 const Carrousel = () => {
   const url = "https://ipfs.moralis.io:2053/ipfs/";
@@ -47,8 +47,8 @@ const Carrousel = () => {
 
   return (
     <>
-      <div>Carrousel</div>
       <Container>
+        <div>Carrousel</div>
         <Grid>
           {info.map((data, index) => {
             return (
@@ -61,11 +61,13 @@ const Carrousel = () => {
             );
           })}
         </Grid>
+
+        
+          <Suspense fallback={<Loading />}>
+            <MainSelected selected={selected} />
+          </Suspense>
+     
       </Container>
-      
-      <Suspense fallback={<Loading />}>
-        <MainSelected selected={selected} />
-      </Suspense>
     </>
   );
 };

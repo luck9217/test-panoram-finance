@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const Body = styled.div`
   padding: 0 2rem;
   align-items: center;
-  display: block;
+  display: inline-block;
 
 `;
 
-export default Container;
+export default Body;
